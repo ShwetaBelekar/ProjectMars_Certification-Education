@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ProjectMars_Certification-Education": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
