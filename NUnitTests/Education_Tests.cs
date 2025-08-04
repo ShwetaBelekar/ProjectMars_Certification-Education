@@ -25,10 +25,10 @@ namespace Project_Mars.NUnitTests
         [SetUp]
         public void SetUpSteps()
         {
-            //driver = new ChromeDriver();
+            
 
             LoginPage loginPageObj = new LoginPage();
-            //loginPageObj.LoginActions(driver);
+           
 
             loginPageObj.VerifyUserInHomePage(driver);
 
@@ -72,7 +72,7 @@ namespace Project_Mars.NUnitTests
             EducationPage educationPageObj = new EducationPage();
             educationPageObj.CreateEducationRecord(driver, collegeUniversityName, countryOfCollegeUniversity, title, degree, yearOfGraduation);
             IWebElement popupAlert = driver.FindElement(By.XPath("//div[@class='ns-box ns-growl ns-effect-jelly ns-type-error ns-show']"));
-            //string popupAlert = educationPageObj.BlankField(driver);
+            
             if (popupAlert.Text == "Please enter all the fields")
             {
                 Assert.Pass("Blank field record not accepted and Popup message says please enter all fields");
@@ -281,14 +281,7 @@ namespace Project_Mars.NUnitTests
 
 
 
-        //[TearDown]
-        //public void Close()
-        //{
-        //    if (driver != null)
-        //    {
-        //        driver.Quit();
-        //    }
-        //}
+
 
 
     }

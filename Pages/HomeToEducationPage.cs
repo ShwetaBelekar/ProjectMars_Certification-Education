@@ -17,12 +17,7 @@ namespace Project_Mars.Pages
             this.driver = driver;
             driver.FindElement(profileTabXPath).Click();
             driver.FindElement(educationOptionXPath).Click();
-            //Thread.Sleep(2000);
-            //IWebElement profileTab = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[1]/div/a[2]"));
-            //profileTab.Click();
-
-            //IWebElement educationOption = driver.FindElement(By.XPath("//a[text()='Education']"));
-            //educationOption.Click();
+           
         }
     }
 }

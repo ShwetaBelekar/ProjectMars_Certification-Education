@@ -10,91 +10,177 @@ using System.Threading.Tasks;
 
 namespace Project_Mars.BaseClass
 {
+    //public class BaseTest
+    //{
+    //    protected IWebDriver driver;
+    //    protected LoginPage loginPageObj;
+    //    protected HomeToEducationPage homeToEducationPageObj;
+    //    protected HomeToCertificationsPage homeToCertificationsPageObj;
+
+
+
+    //    [OneTimeSetUp]
+    //    public void Open()
+    //    {
+    //        driver = new ChromeDriver();
+
+    //        LoginPage loginPageObj = new LoginPage();
+    //        loginPageObj.LoginActions(driver);
+
+
+    //    }
+
+    //    [OneTimeTearDown]
+    //    public void CleanUp()
+    //    {
+
+
+    //        if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Education"))
+    //        {
+    //            try
+    //            {
+    //                HomeToEducationPage homeToEducationPageObj = new HomeToEducationPage();
+    //                homeToEducationPageObj.NavigateToEducation(driver);
+
+
+    //                var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[6]/span[2]/i"));
+    //                for (int i = deleteButtons.Count - 1; i >= 0; i--)
+    //                {
+    //                    deleteButtons[i].Click();
+    //                }
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                Console.WriteLine($"Error during cleanup: {ex.Message}");
+    //            }
+    //            finally
+    //            {
+    //                driver.Quit();
+    //            }
+    //        }
+    //        else if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Certification"))
+    //        {
+    //            try
+    //            {
+    //                HomeToCertificationsPage homeToCertificationsPageObj = new HomeToCertificationsPage();
+    //                homeToCertificationsPageObj.NavigateToCertifications(driver);
+
+
+    //                var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[4]/span[2]/i"));
+    //                for (int i = deleteButtons.Count - 1; i >= 0; i--)
+    //                {
+    //                    deleteButtons[i].Click();
+    //                }
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                Console.WriteLine($"Error during cleanup: {ex.Message}");
+    //            }
+    //            finally
+    //            {
+    //                driver.Quit();
+    //            }
+    //        }
+
+
+
+
+
+    //    }
+
+    //}
+    using AventStack.ExtentReports;
+    using AventStack.ExtentReports.Reporter;
+    using NUnit.Framework;
+    using NUnit.Framework.Interfaces;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using System;
+
     public class BaseTest
     {
         protected IWebDriver driver;
         protected LoginPage loginPageObj;
         protected HomeToEducationPage homeToEducationPageObj;
         protected HomeToCertificationsPage homeToCertificationsPageObj;
-
-       
+        protected ExtentReports extent;
+        protected ExtentTest test;
 
         [OneTimeSetUp]
         public void Open()
         {
-            driver = new ChromeDriver();
+            extent = new ExtentReports();
+            var spark = new ExtentSparkReporter("report.html");
+            extent.AttachReporter(spark);
 
-            LoginPage loginPageObj = new LoginPage();
+            driver = new ChromeDriver();
+            loginPageObj = new LoginPage();
             loginPageObj.LoginActions(driver);
 
-            //loginPageObj.VerifyUserInHomePage(driver);
-
-            //HomeToEducationPage homeToEducationPageObj = new HomeToEducationPage();
-            //homeToEducationPageObj.NavigateToEducation(driver);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-        //public void Open()
-        //{
-        //    //driver = new ChromeDriver();
-        //}
+
         [OneTimeTearDown]
         public void CleanUp()
         {
-            //IWebDriver driver = new ChromeDriver();
-            //LoginPage loginPageObj = new LoginPage();
-            //loginPageObj.LoginActions(driver);
-
-            if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Education"))
+            try
             {
-                try
+                if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Education"))
                 {
-                    HomeToEducationPage homeToEducationPageObj = new HomeToEducationPage();
+                    homeToEducationPageObj = new HomeToEducationPage();
                     homeToEducationPageObj.NavigateToEducation(driver);
 
-                    // Delete languages logic here
                     var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[6]/span[2]/i"));
                     for (int i = deleteButtons.Count - 1; i >= 0; i--)
                     {
                         deleteButtons[i].Click();
+                        test.Log(Status.Pass, "Deleted education entry");
                     }
                 }
-                catch (Exception ex)
+                else if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Certification"))
                 {
-                    Console.WriteLine($"Error during cleanup: {ex.Message}");
-                }
-                finally
-                {
-                    driver.Quit();
-                }
-            }
-            else if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Certification"))
-            {
-                try
-                {
-                    HomeToCertificationsPage homeToCertificationsPageObj = new HomeToCertificationsPage();
+                    homeToCertificationsPageObj = new HomeToCertificationsPage();
                     homeToCertificationsPageObj.NavigateToCertifications(driver);
 
-                    // Delete languages logic here
                     var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[4]/span[2]/i"));
                     for (int i = deleteButtons.Count - 1; i >= 0; i--)
                     {
                         deleteButtons[i].Click();
+                        test.Log(Status.Pass, "Deleted certification entry");
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error during cleanup: {ex.Message}");
-                }
-                finally
-                {
-                    driver.Quit();
-                }
             }
-            
-
-
-
-          
+            catch (Exception ex)
+            {
+                test.Log(Status.Fail, $"Error during cleanup: {ex.Message}");
+            }
+            finally
+            {
+                driver.Quit();
+                extent.Flush();
+            }
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+            {
+                test.Log(Status.Pass, "Test passed");
+            }
+            else
+            {
+                test.Log(Status.Fail, "Test failed");
+                test.AddScreenCaptureFromPath(GetScreenshot());
+            }
+        }
+
+        private string GetScreenshot()
+        {
+            var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            var filename = $"{TestContext.CurrentContext.Test.Name}.png";
+            screenshot.SaveAsFile(filename);
+            return filename;
+        }
     }
 }

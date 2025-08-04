@@ -20,10 +20,10 @@ namespace Project_Mars.NUnitTests
         [SetUp]
         public void SetUpSteps()
         {
-            //driver = new ChromeDriver();
+         
 
             LoginPage loginPageObj = new LoginPage();
-            //loginPageObj.LoginActions(driver);
+           
 
             loginPageObj.VerifyUserInHomePage(driver);
 
@@ -219,13 +219,13 @@ namespace Project_Mars.NUnitTests
                 string alertText = popupAlert.Text;
                 Console.WriteLine("Alert text: " + alertText);
                 testPassed = true;
-                //Assert.Pass(alertText);
+               
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception: " + ex.Message);
-                //Assert.Fail("No alert present");
+               
             }
             if (testPassed)
             {
