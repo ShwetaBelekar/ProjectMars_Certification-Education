@@ -90,6 +90,7 @@ namespace Project_Mars.BaseClass
 
     //}
     using AventStack.ExtentReports;
+    using AventStack.ExtentReports.Model;
     using AventStack.ExtentReports.Reporter;
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
@@ -103,21 +104,31 @@ namespace Project_Mars.BaseClass
         protected LoginPage loginPageObj;
         protected HomeToEducationPage homeToEducationPageObj;
         protected HomeToCertificationsPage homeToCertificationsPageObj;
-        protected ExtentReports extent;
+        //protected ExtentReports extent;
+        protected ExtentReports educationReport;
+        protected ExtentReports certificationReport;
         protected ExtentTest test;
 
         [OneTimeSetUp]
         public void Open()
         {
-            extent = new ExtentReports();
-            var spark = new ExtentSparkReporter("report.html");
-            extent.AttachReporter(spark);
+            educationReport = new ExtentReports();
+            var educationSpark = new ExtentSparkReporter("education_report.html");
+            educationReport.AttachReporter(educationSpark);
 
-            driver = new ChromeDriver();
+            certificationReport = new ExtentReports();
+            var certificationSpark = new ExtentSparkReporter("certification_report.html");
+            certificationReport.AttachReporter(certificationSpark);
+        
+        //extent = new ExtentReports();
+        //var spark = new ExtentSparkReporter("report.html");
+        //extent.AttachReporter(spark);
+
+        driver = new ChromeDriver();
             loginPageObj = new LoginPage();
             loginPageObj.LoginActions(driver);
 
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            //test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
         [OneTimeTearDown]
@@ -157,30 +168,40 @@ namespace Project_Mars.BaseClass
             finally
             {
                 driver.Quit();
-                extent.Flush();
+                //extent.Flush();
             }
         }
 
         [TearDown]
         public void TearDown()
         {
+            string category = TestContext.CurrentContext.Test.Properties["Category"].ToString();
+
+
+            ExtentReports report = category.Contains("Education") ? educationReport : certificationReport;
+            test = report.CreateTest(TestContext.CurrentContext.Test.Name);
+
             if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
-            {
-                test.Log(Status.Pass, "Test passed");
-            }
-            else
             {
                 test.Log(Status.Fail, "Test failed");
                 test.AddScreenCaptureFromPath(GetScreenshot());
             }
+            else
+            {
+
+                test.Log(Status.Pass, "Test passed");
+            }
+            report.Flush();
+
         }
 
         private string GetScreenshot()
         {
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            var filename = $"{TestContext.CurrentContext.Test.Name}.png";
+            var filename = $"screenshot_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
             screenshot.SaveAsFile(filename);
             return filename;
         }
+
     }
 }
