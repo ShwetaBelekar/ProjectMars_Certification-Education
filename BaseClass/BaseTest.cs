@@ -70,10 +70,21 @@ namespace Project_Mars.BaseClass
         }
         private string GetScreenshot()
         {
+            string projectRoot = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".."));
+            string screenshotDirectory = Path.Combine(projectRoot, "Screenshot");
+            if (!Directory.Exists(screenshotDirectory))
+            {
+                Directory.CreateDirectory(screenshotDirectory);
+            }
+            string filename = $"screenshot_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
+            string screenshotPath = Path.Combine(screenshotDirectory, filename);
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            var filename = $"screenshot_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
-            screenshot.SaveAsFile(filename);
-            return filename;
+            screenshot.SaveAsFile(screenshotPath);
+            return screenshotPath;
+            //var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            //var filename = $"screenshot_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
+            //screenshot.SaveAsFile(filename);
+            //return filename;
         }
 
         [OneTimeTearDown]
