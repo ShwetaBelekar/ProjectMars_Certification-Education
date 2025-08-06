@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi;
 using OpenQA.Selenium.Chrome;
@@ -25,8 +27,6 @@ namespace Project_Mars.NUnitTests
         [SetUp]
         public void SetUpSteps()
         {
-            
-
             LoginPage loginPageObj = new LoginPage();
            
 
@@ -277,12 +277,6 @@ namespace Project_Mars.NUnitTests
                 Assert.Fail("Record not deleted");
             }
         }
-
-
-
-
-
-
-
+        
     }
 }

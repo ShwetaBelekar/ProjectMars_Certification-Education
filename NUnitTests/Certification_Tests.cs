@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using Project_Mars.BaseClass;
 using Project_Mars.Pages;
@@ -21,8 +23,7 @@ namespace Project_Mars.NUnitTests
         public void SetUpSteps()
         {
          
-
-            LoginPage loginPageObj = new LoginPage();
+          LoginPage loginPageObj = new LoginPage();
            
 
             loginPageObj.VerifyUserInHomePage(driver);
@@ -239,6 +240,6 @@ namespace Project_Mars.NUnitTests
 
             
         }
-
+        
     }
 }
