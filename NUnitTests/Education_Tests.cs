@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Turnupportal2025.Utilities;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using static ProjectMars_Certification_Education.TestData.Educationtestdata;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Project_Mars.NUnitTests
@@ -35,11 +36,27 @@ namespace Project_Mars.NUnitTests
             HomeToEducationPage homeToEducationPageObj = new HomeToEducationPage();
             homeToEducationPageObj.NavigateToEducation(driver);
         }
-        [Test(Description = "Create Valid Education Record")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "2007")]
-        [TestCase("model college", "Switzerland", "M.B.A", "Commerce", "2020")]
-        [TestCase("newyork university", "United States", "MFA", "Science", "2001")]
-        [TestCase("american college", "New Zealand", "Associate", "Arts", "2024")]
+        public static IEnumerable<TestCaseData> GetTestData(string testName)
+        {
+            var testData = TestDataReader.ReadTestData();
+            foreach (var data in testData[testName])
+            {
+                if (data.NewCollegeUniversityName != null && data.NewCountryOfCollegeUniversity != null && data.NewTitle != null && data.NewDegree != null && data.NewYearOfGraduation != null)
+                {
+                    yield return new TestCaseData(data.CollegeUniversityName, data.CountryOfCollegeUniversity, data.Title, data.Degree, data.YearOfGraduation, data.NewCollegeUniversityName, data.NewCountryOfCollegeUniversity, data.NewTitle, data.NewDegree, data.NewYearOfGraduation);
+                }
+                else if (data.NewTitle != null)
+                {
+                    yield return new TestCaseData(data.CollegeUniversityName, data.CountryOfCollegeUniversity, data.Title, data.Degree, data.YearOfGraduation, data.NewTitle);
+                }
+                else
+                {
+                    yield return new TestCaseData(data.CollegeUniversityName, data.CountryOfCollegeUniversity, data.Title, data.Degree, data.YearOfGraduation);
+                }
+            }
+        }
+        
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "CreateValidEducationRecord" })]
         public void CreateValidEducationRecord(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation)
         {
             EducationPage educationPageObj = new EducationPage();
@@ -59,14 +76,8 @@ namespace Project_Mars.NUnitTests
             }
         }
         
-
-
-        [Test(Description = "Check if the system accepts blank field education record")]
-        [TestCase("mumbai university", "India", "PHD", "", "2007")]
-        [TestCase("", "India", "PHD", "Economics", "2007")]
-        [TestCase("mumbai university", "", "PHD", "Economics", "2007")]
-        [TestCase("mumbai university", "India", "", "Economics", "2007")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "")]
+        
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "TryToCreateEducationRecordWithBlankField" })]
         public void TryToCreateEducationRecordWithBlankField(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation)
         {
             EducationPage educationPageObj = new EducationPage();
@@ -83,14 +94,8 @@ namespace Project_Mars.NUnitTests
             }
 
         }
-        
-
-        [Test(Description = "Create invalid education record")]
-        [TestCase("1234", "India", "PHD", "GrassCutting", "2007")]
-        [TestCase("ABCDEFGH", "Belgium", "M.B.A", "DrinkingWater", "2008")]
-        [TestCase("123@@@@###abcEFG", "Australia", "MFA", "WashingUtensils", "2009")]
-        [TestCase("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "China", "B.A", "Cleaning", "2010")]
-        [TestCase("@@@@###$$$%%%%^^^", "Zambia", "B.Sc", "Roaming", "2011")]
+       
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "CreateInvalidEducationRecord" })]
         public void CreateInvalidEducationRecord(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation)
         {
             EducationPage educationPageObj = new EducationPage();
@@ -106,10 +111,9 @@ namespace Project_Mars.NUnitTests
                 Assert.Fail("Invalid record not accepted no error in the system");
             }
         }
-        [Test(Description = "Create Duplicate Education Record")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "2007")]
         
 
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "CreateDuplicateEducationRecord" })]
         public void CreateDuplicateEducationRecord(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation)
       
         {
@@ -165,10 +169,8 @@ namespace Project_Mars.NUnitTests
                 Assert.Fail("system didn't accepts this education record");
             }
         }
-        [Test(Description = "Edit exisitng education record")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "2007", "model college", "Switzerland", "M.B.A", "Commerce", "2020")]
-        [TestCase("newyork university", "United States", "MFA", "Science", "2001", "american college", "New Zealand", "Associate", "Arts", "2024")]
-
+        
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "EditExistingEducationRecord" })]
         public void EditExistingEducationRecord(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation, string newcollegeUniversityName, string newcountryOfCollegeUniversity, string newtitle, string newdegree, string newyearOfGraduation)
         {
             EducationPage educationPageObj = new EducationPage();
@@ -202,8 +204,7 @@ namespace Project_Mars.NUnitTests
             }
         }
 
-        [Test(Description = "Canceling an edit operation should correctly discards changes but system is not doing this it is saving unexpected changes")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "2007","M.B.A")]
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "Cancelinganeditoperationcorrectlydiscardschanges" })]
         public void Cancelinganeditoperationcorrectlydiscardschanges(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation,string newtitle) 
         {
             EducationPage educationPageObj = new EducationPage();
@@ -242,11 +243,8 @@ namespace Project_Mars.NUnitTests
                 Assert.Fail("Canceling an edit operation should correctly discards changes and Subsequent edits respect the cancellation and do not save unexpected changes. Yes system is not doing this");
             }
         }
-        [Test(Description = "Delete Education Record")]
-        [TestCase("mumbai university", "India", "PHD", "Economics", "2007")]
-        [TestCase("model college", "Switzerland", "M.B.A", "Commerce", "2020")]
-        [TestCase("newyork university", "United States", "MFA", "Science", "2001")]
-        [TestCase("american college", "New Zealand", "Associate", "Arts", "2024")]
+        
+        [Test, TestCaseSource(nameof(GetTestData), new object[] { "DeleteEducationRecord" })]
         public void DeleteEducationRecord(string collegeUniversityName, string countryOfCollegeUniversity, string title, string degree, string yearOfGraduation)
         {
             EducationPage educationPageObj = new EducationPage();

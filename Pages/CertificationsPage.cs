@@ -49,7 +49,6 @@ namespace Project_Mars.Pages
             certifiedFromTextbox.Clear();
             certifiedFromTextbox.SendKeys(newcertificatefrom);
             Thread.Sleep(2000);
-            //yearDropdownButton.Clear();
             yearDropdownButton.SendKeys(newyear);
             Thread.Sleep(5000);
             updateButton.Click();

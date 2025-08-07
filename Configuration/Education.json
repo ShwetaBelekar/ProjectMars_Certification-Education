@@ -1,0 +1,181 @@
+{
+  "CreateValidEducationRecord": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "model college",
+      "CountryOfCollegeUniversity": "Switzerland",
+      "Title": "M.B.A",
+      "Degree": "Commerce",
+      "YearOfGraduation": "2020"
+    },
+    {
+      "CollegeUniversityName": "newyork university",
+      "CountryOfCollegeUniversity": "United States",
+      "Title": "MFA",
+      "Degree": "Science",
+      "YearOfGraduation": "2001"
+    },
+    {
+      "CollegeUniversityName": "american college",
+      "CountryOfCollegeUniversity": "New Zealand",
+      "Title": "Associate",
+      "Degree": "Arts",
+      "YearOfGraduation": "2024"
+    }
+  ],
+  "TryToCreateEducationRecordWithBlankField": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": ""
+    }
+  ],
+  "CreateInvalidEducationRecord": [
+    {
+      "CollegeUniversityName": "1234",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "GrassCutting",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "ABCDEFGH",
+      "CountryOfCollegeUniversity": "Belgium",
+      "Title": "M.B.A",
+      "Degree": "DrinkingWater",
+      "YearOfGraduation": "2008"
+    },
+    {
+      "CollegeUniversityName": "123@@@@###abcEFG",
+      "CountryOfCollegeUniversity": "Australia",
+      "Title": "MFA",
+      "Degree": "WashingUtensils",
+      "YearOfGraduation": "2009"
+    },
+    {
+      "CollegeUniversityName": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "CountryOfCollegeUniversity": "China",
+      "Title": "B.A",
+      "Degree": "Cleaning",
+      "YearOfGraduation": "2010"
+    },
+    {
+      "CollegeUniversityName": "@@@@###$$$%%%%^^^",
+      "CountryOfCollegeUniversity": "Zambia",
+      "Title": "B.Sc",
+      "Degree": "Roaming",
+      "YearOfGraduation": "2011"
+    }
+  ],
+  "CreateDuplicateEducationRecord": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    }
+  ],
+  "EditExistingEducationRecord": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007",
+      "NewCollegeUniversityName": "model college",
+      "NewCountryOfCollegeUniversity": "Switzerland",
+      "NewTitle": "M.B.A",
+      "NewDegree": "Commerce",
+      "NewYearOfGraduation": "2020"
+    },
+    {
+      "CollegeUniversityName": "newyork university",
+      "CountryOfCollegeUniversity": "United States",
+      "Title": "MFA",
+      "Degree": "Science",
+      "YearOfGraduation": "2001",
+      "NewCollegeUniversityName": "american college",
+      "NewCountryOfCollegeUniversity": "New Zealand",
+      "NewTitle": "Associate",
+      "NewDegree": "Arts",
+      "NewYearOfGraduation": "2024"
+    }
+  ],
+  "Cancelinganeditoperationcorrectlydiscardschanges": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007",
+      "NewTitle": "M.B.A"
+    }
+  ],
+  "DeleteEducationRecord": [
+    {
+      "CollegeUniversityName": "mumbai university",
+      "CountryOfCollegeUniversity": "India",
+      "Title": "PHD",
+      "Degree": "Economics",
+      "YearOfGraduation": "2007"
+    },
+    {
+      "CollegeUniversityName": "model college",
+      "CountryOfCollegeUniversity": "Switzerland",
+      "Title": "M.B.A",
+      "Degree": "Commerce",
+      "YearOfGraduation": "2020"
+    },
+    {
+      "CollegeUniversityName": "newyork university",
+      "CountryOfCollegeUniversity": "United States",
+      "Title": "MFA",
+      "Degree": "Science",
+      "YearOfGraduation": "2001"
+    },
+    {
+      "CollegeUniversityName": "american college",
+      "CountryOfCollegeUniversity": "New Zealand",
+      "Title": "Associate",
+      "Degree": "Arts",
+      "YearOfGraduation": "2024"
+    }
+  ]
+}

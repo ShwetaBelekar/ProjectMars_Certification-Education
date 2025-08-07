@@ -20,8 +20,7 @@ namespace Project_Mars.BaseClass
         protected HomeToCertificationsPage homeToCertificationsPageObj;
         protected static ExtentReports extentReport;
         protected ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
-        //protected ExtentReports extentReport;
-        //protected ExtentTest test;
+        
 
         [OneTimeSetUp]
         public void Open()
@@ -36,11 +35,7 @@ namespace Project_Mars.BaseClass
             extentReport = new ExtentReports();
             var spark = new ExtentSparkReporter(reportPath);
             extentReport.AttachReporter(spark);
-            //extentReport = new ExtentReports();
-            //var spark = new ExtentSparkReporter("report.html");
-            //extentReport.AttachReporter(spark);
-
-
+            
             driver = new ChromeDriver();
             loginPageObj = new LoginPage();
             loginPageObj.LoginActions(driver);
@@ -81,10 +76,7 @@ namespace Project_Mars.BaseClass
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile(screenshotPath);
             return screenshotPath;
-            //var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            //var filename = $"screenshot_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.png";
-            //screenshot.SaveAsFile(filename);
-            //return filename;
+            
         }
 
         [OneTimeTearDown]
@@ -132,86 +124,3 @@ namespace Project_Mars.BaseClass
         }
     }
 }
-//namespace Project_Mars.BaseClass
-//{
-//    public class BaseTest
-//    {
-//        protected IWebDriver driver;
-//        protected LoginPage loginPageObj;
-//        protected HomeToEducationPage homeToEducationPageObj;
-//        protected HomeToCertificationsPage homeToCertificationsPageObj;
-
-
-
-//        [OneTimeSetUp]
-//        public void Open()
-//        {
-//            driver = new ChromeDriver();
-
-//            LoginPage loginPageObj = new LoginPage();
-//            loginPageObj.LoginActions(driver);
-
-
-//        }
-
-//        [OneTimeTearDown]
-//        public void CleanUp()
-//        {
-
-
-//            if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Education"))
-//            {
-//                try
-//                {
-//                    HomeToEducationPage homeToEducationPageObj = new HomeToEducationPage();
-//                    homeToEducationPageObj.NavigateToEducation(driver);
-
-
-//                    var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[6]/span[2]/i"));
-//                    for (int i = deleteButtons.Count - 1; i >= 0; i--)
-//                    {
-//                        deleteButtons[i].Click();
-//                    }
-//                }
-//                catch (Exception ex)
-//                {
-//                    Console.WriteLine($"Error during cleanup: {ex.Message}");
-//                }
-//                finally
-//                {
-//                    driver.Quit();
-//                }
-//            }
-//            else if (TestContext.CurrentContext.Test.Properties["Category"].Contains("Certification"))
-//            {
-//                try
-//                {
-//                    HomeToCertificationsPage homeToCertificationsPageObj = new HomeToCertificationsPage();
-//                    homeToCertificationsPageObj.NavigateToCertifications(driver);
-
-
-//                    var deleteButtons = driver.FindElements(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[4]/span[2]/i"));
-//                    for (int i = deleteButtons.Count - 1; i >= 0; i--)
-//                    {
-//                        deleteButtons[i].Click();
-//                    }
-//                }
-//                catch (Exception ex)
-//                {
-//                    Console.WriteLine($"Error during cleanup: {ex.Message}");
-//                }
-//                finally
-//                {
-//                    driver.Quit();
-//                }
-//            }
-
-
-
-
-
-//        }
-
-//    }
-
-//}

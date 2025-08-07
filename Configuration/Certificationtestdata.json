@@ -1,0 +1,123 @@
+{
+  "CreateValidCertificationRecord": [
+    {
+      "CertificateAward": "Test Analyst",
+      "CertificateFrom": "Industry Connect",
+      "Year": "2020"
+    },
+    {
+      "CertificateAward": "Web Developer",
+      "CertificateFrom": "Connect Industry",
+      "Year": "2007"
+    },
+    {
+      "CertificateAward": "Data Analyst",
+      "CertificateFrom": "IT School",
+      "Year": "2024"
+    },
+    {
+      "CertificateAward": "Data Science",
+      "CertificateFrom": "NZ University",
+      "Year": "2017"
+    }
+  ],
+  "TryToCreateCertificationRecordWithBlankField": [
+    {
+      "CertificateAward": "",
+      "CertificateFrom": "Industry Connect",
+      "Year": "2020"
+    },
+    {
+      "CertificateAward": "Data Analyst",
+      "CertificateFrom": "",
+      "Year": "2024"
+    },
+    {
+      "CertificateAward": "Web Developer",
+      "CertificateFrom": "Connect Industry",
+      "Year": ""
+    }
+  ],
+  "CreateInvalidCertificationRecord": [
+    {
+      "CertificateAward": "1234",
+      "CertificateFrom": "Jungle",
+      "Year": "2005"
+    },
+    {
+      "CertificateAward": "ABCDEFGH",
+      "CertificateFrom": "Forest",
+      "Year": "2006"
+    },
+    {
+      "CertificateAward": "123@@@@###abcEFG",
+      "CertificateFrom": "Sun",
+      "Year": "2020"
+    },
+    {
+      "CertificateAward": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "CertificateFrom": "Moon",
+      "Year": "2022"
+    },
+    {
+      "CertificateAward": "@@@@###$$$%%%%^^^",
+      "CertificateFrom": "World",
+      "Year": "2025"
+    }
+  ],
+  "CreateDuplicateCertificationRecord": [
+    {
+      "CertificateAward": "Web Developer",
+      "CertificateFrom": "IndustryConnect",
+      "Year": "2007"
+    }
+  ],
+  "EditExistingCertificationRecord": [
+    {
+      "CertificateAward": "Test Analyst",
+      "CertificateFrom": "Industry Connect",
+      "Year": "2020",
+      "NewCertificateAward": "Web Developer",
+      "NewCertificateFrom": "Connect Industry",
+      "NewYear": "2007"
+    },
+    {
+      "CertificateAward": "Data Analyst",
+      "CertificateFrom": "IT School",
+      "Year": "2024",
+      "NewCertificateAward": "Data Science",
+      "NewCertificateFrom": "NZ University",
+      "NewYear": "2017"
+    }
+  ],
+  "Cancelinganeditoperationcorrectlydiscardschanges": [
+    {
+      "CertificateAward": "Painting",
+      "CertificateFrom": "ArtsSchool",
+      "Year": "2022",
+      "UpdatedCertificateAward": "Drawing"
+    }
+  ],
+  "DeleteCertificationRecord": [
+    {
+      "CertificateAward": "Test Analyst",
+      "CertificateFrom": "Industry Connect",
+      "Year": "2020"
+    },
+    {
+      "CertificateAward": "Web Developer",
+      "CertificateFrom": "Connect Industry",
+      "Year": "2007"
+    },
+    {
+      "CertificateAward": "Data Analyst",
+      "CertificateFrom": "IT School",
+      "Year": "2024"
+    },
+    {
+      "CertificateAward": "Data Science",
+      "CertificateFrom": "NZ University",
+      "Year": "2017"
+    }
+  ]
+}
